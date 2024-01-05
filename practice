@@ -1,0 +1,294 @@
+import logo from "./logo.svg";
+import "./App.css";
+import { useState } from "react";
+import moment from "moment";
+
+// // function clickTab (e) {
+// //   e.preventDefault();
+// //   console.log("탭");
+// }
+// const clickTab = (e, idx) => {
+//   console.log("탭");
+//   console.log(idx);
+// };
+
+// const applePrice = 1000;
+// const bananaPrice = "2000";
+
+// // 과일총합
+// const getFruitTotalPrice = () => {
+//   // 00업체에서 키위는 제외해달라고 했음 이런식으로 히스토리 기록
+//   // if(!키위){
+//   //   ...
+//   // }
+//   return applePrice + Number(bananaPrice);
+// };
+// console.log(getFruitTotalPrice());
+
+// const name = "이다솔";
+// console.log(`가격은 ${getFruitTotalPrice()}이다`);
+
+// const year = "2024년도";
+// console.log(parseInt(year));
+
+const App = () => {
+  const tab = 1;
+  // const personA = 140;
+  // const personB = 80;
+  // personA > personB ? console.log("a가 더크다") : console.log("a가 더크다");
+
+  // // ?? null과 undifined일경우 뒤에 리턴
+  // const nickname = "리액트";
+  // const name = undefined;
+  // console.log(name ?? nickname);
+
+  // const singerObj = { name: "shownu", age: 32 };
+  // singerObj.gender = "male";
+  // console.log(singerObj);
+  // delete singerObj.age;
+  // console.log(singerObj);
+
+  // const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  // for (let i = 0; i < arr.length; i++) {
+  //   console.log(arr[i]);
+  // }
+  // // for of
+  // for (let item of arr) {
+  //   console.log(item);
+  // }
+  // map 함수
+  // arr.map((v, i) => {
+  //   console.log(v, i);
+  // });
+
+  // const personObj = {
+  //   name: "홍길동",
+  //   age: 11,
+  //   location: "대전",
+  // };
+  // const keyArray = Object.keys(personObj);
+  // const valueArray = Object.values(personObj);
+  // console.log(valueArray);
+  // keyArray.map((v) => {
+  //   console.log(personObj[v]);
+  // });
+  // keyArray.forEach((v) => {
+  //   console.log(personObj[v]);
+  // });
+
+  // const addNum = (x) => x + 1;
+  // const addNum2 = (x) => {
+  //   return x + 1;
+  // };
+  // console.log(addNum2(5));
+
+  const list = [1, 2, 3, 4, 5];
+  const res = list.map((v) => v * 2);
+  console.log(res);
+
+  /* 구조분할 */
+  // const idList = [10, 20, 30];
+  // const [first, second, thrid] = idList;
+  // console.long(first, second, thrid);
+
+  const numObj = { first: 10, second: 20, thrid: 30 };
+  const { first, second, thrid } = numObj;
+
+  /* 전개연산자 */
+  const arrA = ["a", "b"];
+  const arrB = ["c", "d"];
+  const arrC = [...arrA, "d", "e"];
+  console.log(...arrB);
+
+  const newArr = [...arrB];
+  console.log(newArr);
+
+  const objA = { a: 1, b: 2 };
+  console.log({ ...objA });
+
+  /* rest 매개변수 */
+  const test = (...rest) => {
+    console.log(rest);
+  };
+  test(1, 2, 3, 4);
+
+  const list2 = ["고기", "야채", "음료수"];
+  console.log(list2.push("라면")); //length 리턴
+  console.log(list2.pop()); // 삭제한요소 리턴
+  console.log(list2.shift()); // 맨 앞 요소삭제 but 속도느림(인덱스가 당겨져서)
+  console.log(list2.unshift("음료수")); //length리턴
+  console.log(list2.slice(0, 2)); // 인덱스시작, 인덱스마지막전까지
+  // const newItem1 = objA.concat(objB);
+
+  // <div>
+  //         <button className={`${tab == 1 ? "bg_red" : ""}`}>메뉴1</button>
+  //         <button>메뉴2</button>
+  // </div>
+
+  // const qnaList = [
+  //   { question: "1번", answer: "1번" },
+  //   { question: "2번", answer: "2번" },
+  //   { question: "3번", answer: "3번" },
+  //   { question: "4번", answer: "4번" },
+  //   { question: "5번", answer: "5번" },
+  // ];
+
+  // qnaList.map((v, i) => {
+  //   console.log(Object.values(v)[0].concat(Object.values(v)[1]));
+  //   console.log(`${v.question}의 답은 ${v.answer}입니다`);
+  //   console.log(`${"질문 ".concat(v.question)}의 답은 이거지롱`);
+  // });
+
+  const qnaObj = [
+    { answer: 1, user: ["user1", "user2", "user3"] },
+    { answer: 2, user: ["user4"] },
+    { answer: 3, user: ["user5", "user6"] },
+  ];
+  qnaObj.push({ answer: 4, user: ["user7", "user8"] });
+  console.log(qnaObj);
+  const totalUser = [];
+  qnaObj.map((v) => {
+    totalUser.push(...v.user);
+  });
+  console.log(totalUser);
+  console.log(`${"답변을 한 사용자의 명단은".concat([...totalUser])} 입니다`);
+
+  // findIndex
+  const newArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  // const result = newArray.findIndex((v) => (v == 2 ? true : false));
+  // console.log(result);
+
+  // console.log(
+  //   newArray[newArray.findIndex((v) => (v % 2 == 0 && v != 2 ? true : false))]
+  // );
+
+  const indexList = [];
+  const twoList = [];
+  newArray.forEach((v, i) => {
+    if (v % 2 == 0) {
+      indexList.push(i);
+      twoList.push(v);
+    }
+  });
+  console.log(indexList);
+  console.log(twoList);
+
+  //find: 요소 찾기
+  const findArr = [{ name: "이이름" }, { name: "김이름" }, { name: "박이름" }];
+  const result = findArr.find((v) => v.name == "김이름");
+  console.log(result);
+
+  // filter
+  const findArr2 = [
+    { name: "이이름", job: "개발자" },
+    { name: "김이름" },
+    { name: "박이름" },
+  ];
+  const result2 = findArr2.filter((v) => v.job == "개발자");
+  console.log(result2);
+
+  // sort = 기본적으로 문자열 정렬함수
+  const stringArr = ["a", "d", "c"];
+  console.log(stringArr.sort());
+  const numArr = [10, 2, 3];
+  //numArr.sort(비교함수)
+  //sort : -1작다, 0같다, 1크다
+  console.log(numArr.sort((a, b) => a - b)); //오름차순 b-a 내림차순
+
+  const res1 = stringArr.sort((a, b) => {
+    if (a < b) {
+      return -1;
+    } else if (a > b) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+  console.log(res1);
+
+  //join 구분자
+  console.log(newArray.join("/"));
+
+  // // 기존 DATE 객체
+  // const date = new Date();
+  // console.log(date);
+  // console.log(date.toISOString());
+
+  // const year = date.getFullYear;
+  // const month = date.getMonth + 1;
+  // const day = date.getDate;
+
+  // DATE객체 Intl
+  const date = new Date();
+  const res3 = new Intl.DateTimeFormat("kr").format(date);
+  console.log(res3);
+
+  const dateArray = [
+    new Date("2010-10-02"),
+    new Date("2000-01-21"),
+    new Date("2024-01-10"),
+    new Date("1992-12-02"),
+  ];
+  const jDate = dateArray.filter(
+    (v) => v.getMonth() + 1 == date.getMonth() + 1
+  );
+  console.log(jDate);
+
+  const dateArray2 = [
+    "2024. 01. 05",
+    "2024. 03. 11",
+    "2024. 02. 05",
+    "2024. 01. 25",
+  ];
+
+  const result5 = dateArray2.filter((v) => v.includes("01"));
+  console.log(result5);
+
+  console.log(moment().format("YYYY년MM월DD일 HH:mm:ss"));
+  console.log(moment().utc().format("YYYY-MM-DD HH:mm:ss"));
+  console.log(moment().utc().add(9, "h").format("YYYY-MM-DD HH:mm:ss"));
+
+  console.log(`${moment().diff(moment("2024-01-02"), "days")} 일전`);
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+};
+
+// function App() {
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <img src={logo} className="App-logo" alt="logo" />
+//         <p>
+//           Edit <code>src/App.js</code> and save to reload.
+//         </p>
+//         <a
+//           className="App-link"
+//           href="https://reactjs.org"
+//           target="_blank"
+//           rel="noopener noreferrer"
+//         >
+//           Learn React
+//         </a>
+//       </header>
+//     </div>
+//   );
+// }
+
+export default App;
