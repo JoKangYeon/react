@@ -1,0 +1,126 @@
+import "./App.css";
+import Body from "./component/Body";
+import Footer from "./component/Footer";
+import Header from "./component/Header";
+import { useState } from "react";
+
+const App = () => {
+  //props: 부모 -> 자식 데이터를 전달 (json형태)
+
+  // useState
+  // const [현재상태값(state변수, 상태업데이트함수(set함수)] = useState(초기값);
+  // 비동기처리 함수
+  console.log("=====> rendering");
+  const [name, setName] = useState(""); //inputBox에 담아둘 것
+  const [list, setList] = useState([]);
+  const [value, setValue] = useState();
+
+  const nameOnChangeHandler = (e) => {
+    // console.log(e);
+    setName(e.target.value);
+  };
+
+  const add = (e) => {
+    e.preventDefault();
+    setList([...list, name]);
+    setName("");
+  };
+
+  return (
+    <div className="App">
+      <p>이름목록</p>
+      <input onChange={nameOnChangeHandler} value={name}></input>
+      <button onClick={add}>추가</button>
+      <p>전체목록</p>
+      <div>
+        {list.map((v, i) => {
+          return <p key={`name+${i}`}>{v}</p>;
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default App;
+
+
+-------------------------------body-----------------------------
+
+import "../common.css";
+
+const Body = () => {
+  const list = [
+    { question: "집에 가고 싶나요?", answer: "네" },
+    { question: "배가 고픈가요?", answer: "아니요" },
+    { question: "공부가 재밌나요??", answer: "그냥 그래요" },
+    { question: "설날이 기대되나요?", answer: "엄청요" },
+  ];
+
+  const fruitList = [
+    { fruit: "사과", price: 100 },
+    { fruit: "바나나", price: 200 },
+    { fruit: "딸기", price: 300 },
+    { fruit: "복숭아", price: 400 },
+    { fruit: "오렌지", price: 500 },
+  ];
+
+  return (
+    <>
+      <div
+        style={{
+          backgroundColor: "skyblue",
+        }}
+      >
+        <h2>모든 질문 목록</h2>
+        {list.map((v, i) => {
+          return (
+            <div key={`list-${i}`}>
+              <p>
+                Q{i + 1}.{v.question}
+              </p>{" "}
+              <p>{v.answer}</p>
+            </div>
+          );
+        })}
+        <h3>3번 질문 제외 목록</h3>
+        {list.map((v, i) => {
+          return i == 2 ? (
+            ""
+          ) : (
+            <div>
+              Q{i + 1}.{v.question} {v.answer}
+            </div>
+          );
+        })}
+
+        <h2>과일 목록</h2>
+        {fruitList.map((v, i) => {
+          return (
+            <div
+              style={{
+                paddingLeft: "200px",
+                display: "flex",
+                justifyContent: "start",
+                alignItems: "center",
+              }}
+            >
+              <div>
+                <img
+                  src={`/image/${i + 1}.jpg`}
+                  style={{ width: "150px", height: "150px" }}
+                ></img>
+              </div>
+
+              <div style={{ color: i == 3 ? "red" : "black" }}>
+                {`${v.fruit}의 가격 `}
+              </div>
+              <div>{` :  ${v.price} 원`}</div>
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
+};
+
+export default Body;
