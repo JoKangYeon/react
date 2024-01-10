@@ -1,0 +1,193 @@
+import { useState } from "react";
+import "../common.css";
+
+const Body = ({}) => {
+  const itemList = [
+    { item: "사과", price: 2000 },
+    { item: "과자", price: 1000 },
+    { item: "바디워시", price: 15000 },
+    { item: "비누", price: 1000 },
+    { item: "수건", price: 2000 },
+    { item: "컵라면", price: 1500 },
+  ];
+
+  const [backColor, setBackColor] = useState(1);
+
+  const ChangeBack = (e, num) => {
+    // console.log(num);
+    e.preventDefault();
+    setBackColor(num);
+  };
+
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [userList, setUserList] = useState([]);
+  const [eachAge, eachSumAge] = useState(); // 무조건 함수는 set으로
+
+  const [fruit, setFruit] = useState("");
+  const [fruitList, setFruitList] = useState([]);
+
+  const addName = (e) => {
+    // console.log(e);
+    setName(e.target.value);
+  };
+  const addAge = (e) => {
+    // console.log(e);
+    setAge(e.target.value);
+  };
+
+  const addUser = (e) => {
+    e.preventDefault();
+    if (name != "" && age != "") {
+      setUserList([...userList, { name: name, age: age }]);
+      setAge("");
+      setName("");
+    } else {
+      alert("이름 또는 나이를 입력해주세요.");
+    }
+  };
+
+  const sumAge = (e) => {
+    e.preventDefault();
+    let resultSum = 0;
+    userList.map((v, i) => {
+      resultSum += Number(v.age);
+    });
+    // const reuslt = userList.reduce((arr, item) => arr + Number(item.age), 0);
+    eachSumAge(resultSum);
+  };
+
+  const selectFruit = (e) => {
+    console.log(e.target.value);
+    setFruit(e.target.value);
+    // e.target.value에 index를 넘겨서 해도되고
+    // const res = itemList.find((item) => item.item == e.target.value) find함수를 사용해도된다
+  };
+
+  const addFruit = (e, v) => {
+    e.preventDefault();
+    if (fruit === "") {
+      alert("목록을 선택해주세요");
+      return;
+    }
+    itemList.map((v, i) => {
+      // console.log(fruit);
+      // console.log(v.item);
+
+      if (v.item === fruit) {
+        setFruitList([...fruitList, { fruit: v.item, price: v.price }]);
+      }
+    });
+  };
+
+  const deleteItem = (e, i) => {
+    e.preventDefault();
+    fruitList.splice(i, 1);
+    setFruitList([...fruitList]);
+  };
+
+  return (
+    <div className="Body">
+      <div className="div-box">
+        <div className="container-a">
+          <div>
+            <button
+              onClick={(e) => ChangeBack(e, 1)}
+              style={{
+                backgroundColor: backColor == 1 ? "skyblue" : "white",
+              }}
+              className="head-Btn"
+            >
+              사용자정보
+            </button>
+          </div>
+          <div>
+            <button
+              onClick={(e) => ChangeBack(e, 2)}
+              style={{
+                backgroundColor: backColor == 2 ? "skyblue" : "white",
+              }}
+              className="head-Btn"
+            >
+              장보기목록
+            </button>
+          </div>
+        </div>
+        {backColor == 1 ? (
+          <div>
+            <div className="container-b">
+              <div>사용자 추가하기</div>
+              <div>
+                <p>
+                  이름입력:<input onChange={addName} value={name}></input>
+                </p>
+                <p>
+                  나이입력:<input onChange={addAge} value={age}></input>
+                </p>
+                <button
+                  onClick={addUser}
+                  style={{ backgroundColor: "lightblue" }}
+                >
+                  사용자 추가
+                </button>
+              </div>
+            </div>
+            <div className="container-c">
+              <h4>사용자 목록 조회</h4>
+              {userList.map((v, i) => {
+                return (
+                  <p key={`list-${i}`}>
+                    이름: {v.name} / 나이: {v.age}{" "}
+                  </p>
+                );
+              })}
+              <button onClick={sumAge} style={{ backgroundColor: "lightblue" }}>
+                나이 합산
+              </button>
+              <p>{eachAge}</p>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <div>
+              <h3>항목추가하기</h3>
+            </div>
+            <div>
+              <select onChange={selectFruit}>
+                <option value="">--목록--</option>
+                {itemList.map((v, i) => {
+                  return (
+                    <option value={v.item} key={`list-${i}`}>
+                      {v.item}
+                    </option>
+                  );
+                })}
+              </select>
+              <button onClick={(e) => addFruit(e, 2)}>추가</button>
+            </div>
+            <div>
+              <h3>장보기목록</h3>
+            </div>
+            <div>
+              {fruitList.map((v, i) => {
+                return (
+                  <div key={`fl${i}`}>
+                    {`${v.fruit} / ${v.price}원`}
+                    <button
+                      style={{ backgroundColor: "orangered" }}
+                      onClick={(e) => deleteItem(e, i)}
+                    >
+                      삭제
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Body;
