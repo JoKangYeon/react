@@ -1,0 +1,78 @@
+--기초--
+import "./App.css";
+import Body from "./component/Body";
+import Footer from "./component/Footer";
+import Header from "./component/Header";
+import { useState } from "react";
+import { useEffect } from "react";
+
+const App = () => {
+  /* useEffect */
+
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState("");
+  const [list, setList] = useState([]);
+
+  const addCount = (e) => {
+    e.preventDefault();
+    setCount(count + 1);
+  };
+
+  const nameOnChangeHandler = (e) => {
+    e.preventDefault();
+    setName(e.target.value);
+  };
+
+  const addList = (e) => {
+    e.preventDefault();
+    setList([...list, name]);
+  };
+
+  useEffect(() => {
+    console.log("매번 렌더링");
+  });
+
+  useEffect(() => {
+    console.log("최초렌더링");
+  }, []);
+
+  useEffect(() => {
+    console.log("카운팅 렌더링");
+  }, [count]);
+
+  useEffect(() => {
+    console.log("네임 렌더링");
+  }, [name]);
+
+  useEffect(() => {
+    console.log("리스트 렌더링");
+  }, [list]);
+
+  return (
+    <div className="App">
+      {count}
+      <button onClick={addCount}>카운트업</button>
+      <input type="" onChange={nameOnChangeHandler}></input>
+      <div>
+        <button onClick={addList}>추가</button>
+        {/* <button onClick={(e) => setList([...list, name])}>추가</button> */}
+      </div>
+
+      {/* <Header />
+      <Body />
+      <Footer /> */}
+    </div>
+  );
+};
+
+export default App;
+
+
+------------------------------------------------------------------------------------
+
+
+
+
+
+
+
