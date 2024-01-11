@@ -70,6 +70,33 @@ export default App;
 
 ------------------------------------------------------------------------------------
 타이머 
+(Body)
+  // const [show, setShow] = useState(false);
+  // const childFunction = (isSuccess, msg) => {
+  //   if (isSuccess) {
+  //     setShow(false);
+  //     alert(msg)
+  //   }else{
+  //     alert(msg)
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   console.log(show);
+  // }, [show]);
+
+  // return (
+  //   <div className="Container font-black">
+  //     <div>
+  //       {show ? (
+  //         <Timer initTime="2" childFunction={childFunction} />
+  //       ) : (
+  //         <button onClick={(e) => setShow(!show)}>인증하기</button>
+  //       )}
+  //     </div>
+  //   </div>
+  // );
+(/Body)
 
 import "../common.css";
 import { useEffect, useState } from "react";
