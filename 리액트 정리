@@ -1,0 +1,49 @@
+반복문 (foreach / 리턴값x, map / 리턴값o)
+|| 앞이 true이면 앞쪽리턴 false면 뒤에리턴
+&& 앞이 false이면 앞쪽리턴 true면 뒤에리턴 
+Object.keys => 키만리턴, values => 값만 리턴
+
+구조분할  // 어디에쓰는지 잘모르겠음 
+const idList = [10, 20, 30];
+const [first, second, thrid] = idList;
+console.log(first, second, thrid);
+
+전개연산자 (...)
+...list 하면 list 요소를 1개씩 나눠줌 + 랜더링?
+
+rest (다시 배열로 만들어줌)
+
+findIndex 조건에 맞는 인덱스반환  newArray[newArray.findIndex((v) => (v % 2 == 0 && v != 2 ? true : false))]
+find 조건에 맞는 요소 발견 시 그 값 리턴 후 종료  const result = findArr.find((v) => v.name == "김이름");
+filter 조건에 맞는 모든요소 배열로 리턴   const result2 = findArr2.filter((v) => v.job == "개발자");
+
+sort : -1작다, 0같다, 1크다
+console.log(numArr.sort((a, b) => a - b)); //오름차순 b-a 내림차순
+
+props: 부모 -> 자식 데이터를 전달 (json형태)
+
+useState  비동기처리 함수
+렌더링을 유발하며, 값을 저장해둠 
+const [현재상태값(state변수, 상태업데이트함수(set함수)] = useState(초기값);
+
+태그안에서는 삼항연산자 사용  
+동일태그내에서 부모가 1개여야함 2개이상일 경우 <></>빈태그로 합쳐줘야함
+
+useEffect
+2번째
+useEffect(() => {
+},?) 
+?가 없으면 렌더링을 발생할 때마다 실행
+[] 값이 없으면 최초 1회 실행
+[value] value의 값이 변할때 마다 실행
+
+useRef
+dom에 직접 접근이 필요할 때 사용
+const showRef = useRef(초기값); 
+<input ref={}/>
+
+
+
+  
+
+
