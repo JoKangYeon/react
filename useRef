@@ -1,0 +1,70 @@
+import { render } from "@testing-library/react";
+import "./App.css";
+import Body from "./component/Body";
+import { useState, useEffect, useRef } from "react";
+
+const App = () => {
+
+UseRef
+//값을 유지하고 있어야하는경우
+  // dom요소에 직접 접근해야하는경우
+  // ref객체를 통해 dom 요소 직접 조작가능함
+
+  // console.log("==> rendering");
+  // const [count, setCount] = useState(0);
+  // const countRef = useRef(0); //객체 생성
+
+  // console.log(countRef.current);
+
+  // var countVar = 0;
+
+  // const increaseState = (e) => {
+  //   e.preventDefault();
+  //   setCount(count + 1);
+  // };
+
+  // const increaseRef = (e) => {
+  //   e.preventDefault();
+  //   countRef.current = countRef.current + 1;
+  //   console.log("ref==> ", countRef.current);
+  // };
+
+  // const increaseVar = (e) => {
+  //   e.preventDefault();
+  //   countVar += 1;
+  //   console.log(countVar);
+  // };
+
+  // const textRef = useRef("");
+  // const [userId, setUserId] = useState;
+  // const goLogin = (e) => {
+  //   e.preventDefault();
+  //   alert("로그인 완료");
+  //   textRef.current.focus();
+  //   setUserId();
+  // };
+
+return (
+    // <div className="App">
+    //   <p>State: {count}</p>
+    //   <p>Ref: {countRef.current}</p>
+    //   <p>Var: {countVar}</p>
+    //   <div>
+    //     <button onClick={increaseState}>state올리기</button>
+    //     <button onClick={increaseRef}>ref올리기</button>
+    //     <button onClick={increaseVar}>var올리기</button>
+    //   </div>
+    //   <br />
+    //   <div>
+    //     <button onClick={goLogin} value={userId}>
+    //       로그인하기
+    //     </button>
+    //   </div>
+    //   <br />
+    //   아이디
+    //   <input ref={textRef} />
+    // </div>
+  );
+};
+
+export default App;
