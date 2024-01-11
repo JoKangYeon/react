@@ -1,0 +1,82 @@
+간단한 로그인
+import { useState } from "react";
+
+const Login = ({ send }) => {
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState(true);
+
+  const idOnChangeHandler = (e) => {
+    console.log(e.target.value);
+    setUserId(e.target.value);
+  };
+
+  return (
+    <div>
+      <div>
+        <h3>로그인하기</h3>
+        <div>아이디</div>
+        <div>
+          <input onChange={idOnChangeHandler} type="text" />
+        </div>
+        <div>비번</div>
+        <div>
+          <input type={password ? "text" : "password"} />
+          <button
+            onClick={(e) => {
+              password ? setPassword(false) : setPassword(true);
+            }}
+          >
+            {password ? "숨김" : "보임"}
+          </button>
+        </div>
+        <div>
+          <button onClick={(e) => send(userId)}>확인</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
+
+
+-------------------------------------------------------------------------------------
+
+
+import "../common.css";
+import { useEffect, useState, useRef } from "react";
+import Timer from "./Timer";
+import Login from "./login/Login.js";
+
+const Body = () => {
+  const [show, setShow] = useState(true);
+  const [param, setParam] = useState("");
+  const showRef = useRef("");
+
+  const send = (param) => {
+    console.log("함수전달됨");
+    setShow(false);
+    setParam(param);
+  };
+
+  useEffect(() => {
+    if (!show) {
+      showRef.current.focus();
+    }
+  }, [show]);
+
+  return (
+    <div>
+      {show ? (
+        <Login send={send} />
+      ) : (
+        <div>
+          <h3>로그인 완료 사용자 아이디</h3>
+          <input type="text" defaultValue={param} ref={showRef}></input>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Body;
