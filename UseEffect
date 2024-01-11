@@ -69,7 +69,102 @@ export default App;
 
 
 ------------------------------------------------------------------------------------
+타이머 
 
+import "../common.css";
+import { useEffect, useState } from "react";
+const Timer = ({ initTime, childFunction }) => {
+  const [time, setTime] = useState(initTime);
+  const [state, setState] = useState(false);
+
+  useEffect(() => {
+    //타이머
+    let timer = null;
+    // if (state) {
+    timer = setInterval(() => {
+      // setTime(time + 1);   비동기라서
+      const timeOut = false;
+      setTime((pre) => {
+        if (pre == 0) {
+          console.log("종료");
+          clearInterval(timer);
+          childFunction({ isSuccess: false, msg: "시간초과" });
+          return 0;
+        }
+        return pre - 1;
+      }); // update
+    }, 1000);
+    // }
+
+    return () => {
+      clearInterval(timer);
+      console.log("종료");
+    };
+
+    // //clearup
+    // return () => {
+    //   console.log("종료");
+    //   clearInterval(timer);
+    // };
+  }, []);
+
+  const timeFormatter = (time) => {
+    const min = Math.floor(time / 60);
+    const sec = time % 60;
+
+    const formatMin = String(min).padStart(2, "0");
+    const formatSec = String(sec).padStart(2, "0");
+
+    return `${formatMin} : ${formatSec}`;
+  };
+
+  return (
+    <div className="Timer">
+      <div>인증 시간</div>
+      <div>남은시간 : {timeFormatter(time)}</div>
+      <div>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            childFunction({ isSuccess: true, msg: "인증성공" });
+          }}
+        >
+          인증완료
+        </button>
+      </div>
+
+      {/* <div>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            setState(true);
+          }}
+        >
+          Start
+        </button>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            setState(false);
+          }}
+        >
+          Pause
+        </button>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            setState(false);
+            setTime(initTime);
+          }}
+        >
+          Reset
+        </button>
+      </div> */}
+    </div>
+  );
+};
+
+export default Timer;
 
 
 
