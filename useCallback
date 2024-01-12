@@ -1,0 +1,53 @@
+import { render } from "@testing-library/react";
+import "./App.css";
+import Body from "./component/Body";
+import { useState, useEffect, useRef, useCallback } from "react";
+
+const App = () => {
+  const test = () => {
+    console.log("ddd");
+  };
+
+  //useMemo 값을 저장
+  /* useCallback */
+  // 인자로 전달한 콜백함수 자체를 메모리제이션하는것
+
+  const [number, setNumber] = useState(0);
+  const [toggel, setToggel] = useState(false);
+
+  const callBasic = () => {
+    console.log("1==>", number);
+  };
+
+  const callUseCallback = useCallback(() => {
+    console.log("2==>", number);
+  }, []);
+
+  useEffect(() => {
+    console.log("주소겂이 변경");
+  }, [callBasic]);
+
+  useEffect(() => {
+    console.log("주소겂이 변경");
+  }, [callUseCallback]);
+
+  return (
+    <div>
+      <div>
+        <input type="number" value={number}></input>
+        <button onClick={(e) => setNumber(number + 1)}>상승</button>
+        <button onClick={(e) => setNumber(number + 1)}>{toggel}</button>
+      </div>
+      <div>
+        <button onClick={callBasic}>함수호출</button>
+        <br />
+        <button onClick={callUseCallback}>함수호출2</button>
+        <br />
+      </div>
+    </div>
+  );
+
+  // <Body />;
+};
+
+export default App;
