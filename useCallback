@@ -51,3 +51,93 @@ const App = () => {
 };
 
 export default App;
+
+--------------------------------  use함수 총 정리 --------------------------------
+
+import "../common.css";
+import { useEffect, useState, useRef, useCallback } from "react";
+import Timer from "./Timer";
+import Login from "./login/Login.js";
+
+const Body = () => {
+  const jobList = ["개발자", "의사", "건물주", "선생님"];
+
+  const [name, setName] = useState("");
+  const [job, setJob] = useState(jobList[0]);
+  const [gender, setGender] = useState("남성");
+  const [submit, setSubmit] = useState(false);
+  const nameRef = useRef("");
+
+  const nameUseCallback = useCallback((e) => {
+    console.log(e.target.value);
+    setName(e.target.value);
+  }, []);
+
+  const jobUseCallback = useCallback((e) => {
+    setJob(e.target.value);
+  }, []);
+
+  const genderUsecallback = useCallback((e) => {
+    setGender(e.target.value);
+  }, []);
+
+  const submitCheck = () => {
+    if (name === "") {
+      nameRef.current.focus();
+    } else {
+      setSubmit(!submit);
+    }
+  };
+
+  return (
+    <div>
+      <div>이름</div>
+      <div>
+        <input onChange={nameUseCallback} type="text" ref={nameRef}></input>
+      </div>
+      <div>직업</div>
+      <div>
+        <select onChange={jobUseCallback}>
+          {jobList.map((v, i) => {
+            return (
+              <option key={`list-${i}`} value={v}>
+                {v}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+      <div>성별</div>
+      <div>
+        <input
+          onChange={genderUsecallback}
+          type="radio"
+          name="gender"
+          value="남성"
+          checked={gender == "남성" ? "checked" : ""}
+        ></input>
+        남성
+        <input
+          onChange={genderUsecallback}
+          type="radio"
+          name="gender"
+          value="여성"
+          checked={gender == "여성" ? "checked" : ""}
+        ></input>
+        여성
+      </div>
+      <button onClick={submitCheck}>제출</button>
+      {submit ? (
+        <div>
+          <div>이름 : {name}</div>
+          <div>직업 : {job}</div>
+          <div>성별 : {gender}</div>
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
+export default Body;
+
+
